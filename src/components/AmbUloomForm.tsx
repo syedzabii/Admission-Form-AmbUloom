@@ -26,7 +26,7 @@ const AmbUloomForm = () => {
       })
       .then(() => {
         reset();
-        !isSubmitting && navigate("/onSubmit");
+        navigate("/onSubmit");
       })
       .catch((error) => console.log(error.response.data.message));
   };
