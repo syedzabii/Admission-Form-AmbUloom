@@ -10,7 +10,7 @@ const AmbUloomForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors, isSubmitting },
     control,
   } = useForm<StudentForm>({
     resolver: zodResolver(AmbUloomFormschema),
@@ -18,15 +18,15 @@ const AmbUloomForm = () => {
   const onSubmitCallBack: SubmitHandler<StudentForm> = (data) => {
     const { studentPhoto, ...dataWithoutPhoto } = data;
     console.log(dataWithoutPhoto);
-    reset();
     //It works!!
     apiClient
       .post("/student/new", dataWithoutPhoto, {
         withCredentials: true,
       })
       .then(() => {
-        reset();
+        console.log("form sucessfully submitted!!");
         navigate("/onSubmit");
+        // reset();
       })
       .catch((error) => console.log(error.response.data.message));
   };
