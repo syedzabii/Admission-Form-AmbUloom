@@ -4,18 +4,21 @@ import { AmbUloomFormschema, StudentForm } from "../constants/schema";
 import AdmissionForm from "../components/AdmissionForm";
 import apiClient from "../services/api-client";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const AmbUloomForm = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setisSubmitting] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     control,
   } = useForm<StudentForm>({
     resolver: zodResolver(AmbUloomFormschema),
   });
   const onSubmitCallBack: SubmitHandler<StudentForm> = (data) => {
+    setisSubmitting(true);
     const { studentPhoto, ...dataWithoutPhoto } = data;
     console.log(dataWithoutPhoto);
     //It works!!
@@ -24,6 +27,7 @@ const AmbUloomForm = () => {
         withCredentials: true,
       })
       .then(() => {
+        setisSubmitting(false);
         console.log("form sucessfully submitted!!");
         navigate("/onSubmit");
         // reset();

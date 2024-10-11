@@ -19,7 +19,7 @@ import { educationalLevel, gender } from "../constants/constant";
 interface Props {
   register: UseFormRegister<StudentForm>;
   handleSubmit: UseFormHandleSubmit<StudentForm, undefined>;
-  isSubmitting: boolean | undefined;
+  isSubmitting: boolean;
   //   reset: UseFormReset<StudentForm>;
   errors: FieldErrors<StudentForm>;
   control: Control<StudentForm, any>;
@@ -266,7 +266,11 @@ const AdmissionForm = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-green-600 rounded-lg text-white py-2 hover:bg-green-500 transition-colors mb-8"
+            className={`${
+              isSubmitting
+                ? "w-full bg-gray-600 rounded-lg text-white py-2 hover:bg-gray-500 transition-colors mb-8"
+                : "w-full bg-green-600 rounded-lg text-white py-2 hover:bg-green-500 transition-colors mb-8"
+            }`}
           >
             {isSubmitting ? "SUBMITTING" : "SUBMIT"}
           </button>
